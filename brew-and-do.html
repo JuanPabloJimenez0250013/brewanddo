@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brew &amp; Do — Encuentra tu café ideal para trabajar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#EDE6D6;
+    --cream-2:#F6F1E6;
+    --ink:#231B12;
+    --green:#1F5E3B;
+    --green-deep:#163F28;
+    --green-tint:#DCE7DA;
+    --brown:#6B4327;
+    --brown-deep:#4A2E1A;
+    --line:#D8CDB6;
+    --gold:#C98A3E;
+    --red:#B0432E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Karla',sans-serif;
+    font-size:16px;
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    color:var(--ink);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  ::selection{background:var(--green);color:var(--cream-2);}
+
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(237,230,214,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Fraunces',serif;font-weight:700;font-size:1.35rem;
+  }
+  .logo-mark{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--green);
+    display:flex;align-items:center;justify-content:center;flex:none;
+  }
+  .logo-mark svg{width:18px;height:18px;}
+  .nav-links{display:flex;gap:34px;font-size:0.95rem;font-weight:600;}
+  .nav-links a{opacity:0.75;transition:opacity .15s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-right{display:flex;align-items:center;gap:16px;}
+  .fav-toggle{
+    display:flex;align-items:center;gap:6px;
+    font-size:0.85rem;font-weight:700;border:1.5px solid var(--line);
+    background:transparent;padding:9px 16px;border-radius:24px;cursor:pointer;
+  }
+  .fav-toggle.active{border-color:var(--red);color:var(--red);}
+  .nav-cta{
+    background:var(--ink);color:var(--cream-2);
+    padding:11px 22px;border-radius:30px;font-weight:700;font-size:0.9rem;
+    transition:background .15s;border:none;cursor:pointer;
+  }
+  .nav-cta:hover{background:var(--brown-deep);}
+  @media (max-width:900px){ .nav-links{display:none;} }
+
+  .hero{padding:74px 0 40px;position:relative;overflow:hidden;}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;}
+  .eyebrow-row{display:flex;align-items:center;gap:10px;margin-bottom:22px;}
+  .steam-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);}
+  .eyebrow{font-size:0.85rem;font-weight:700;color:var(--brown);}
+  .hero h1{font-size:clamp(2.4rem,4.6vw,3.9rem);line-height:1.03;max-width:11ch;}
+  .hero p.lead{margin-top:22px;max-width:46ch;font-size:1.12rem;color:#4a4030;}
+  .hero-actions{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--green);color:var(--cream-2);
+    padding:15px 28px;border-radius:30px;font-weight:700;font-size:0.98rem;
+    border:none;cursor:pointer;transition:transform .15s, background .15s;
+  }
+  .btn-primary:hover{background:var(--green-deep);transform:translateY(-1px);}
+  .btn-ghost{
+    padding:15px 26px;border-radius:30px;font-weight:700;font-size:0.98rem;
+    border:1.5px solid var(--ink);cursor:pointer;background:transparent;
+  }
+  .btn-ghost:hover{background:var(--ink);color:var(--cream-2);}
+  .hero-stats{display:flex;gap:34px;margin-top:40px;}
+  .hero-stats div{border-left:2px solid var(--line);padding-left:14px;}
+  .hero-stats strong{display:block;font-family:'Fraunces',serif;font-size:1.5rem;}
+  .hero-stats span{font-size:0.82rem;color:#6b6151;}
+
+  .hero-visual{position:relative;}
+  .visual-card{
+    background:var(--cream-2);border:1px solid var(--line);border-radius:26px;
+    padding:26px;box-shadow:0 30px 60px -30px rgba(35,27,18,0.35);transform:rotate(-1.4deg);
+  }
+  .visual-photo{height:170px;border-radius:16px;background:linear-gradient(135deg,#2c5c3d,#1f4229);position:relative;overflow:hidden;}
+  .visual-photo .tag{position:absolute;top:12px;left:12px;background:rgba(246,241,230,0.92);color:var(--ink);font-size:0.72rem;font-weight:700;padding:5px 10px;border-radius:20px;}
+  .visual-photo svg{position:absolute;right:-10px;bottom:-10px;opacity:0.5;width:150px;height:150px;}
+  .visual-body{padding-top:18px;}
+  .visual-title-row{display:flex;justify-content:space-between;align-items:baseline;}
+  .visual-title-row h3{font-size:1.25rem;}
+  .score-pill{background:var(--green-tint);color:var(--green-deep);font-weight:700;font-size:0.82rem;padding:5px 11px;border-radius:20px;}
+  .visual-loc{font-size:0.85rem;color:#6b6151;margin-top:4px;}
+  .chip-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  .chip{font-size:0.76rem;font-weight:600;padding:6px 11px;border-radius:20px;background:var(--cream);border:1px solid var(--line);color:#4a4030;}
+  .float-card{position:absolute;background:var(--ink);color:var(--cream-2);border-radius:16px;padding:14px 16px;font-size:0.82rem;font-weight:600;box-shadow:0 18px 30px -16px rgba(0,0,0,0.4);}
+  .float-1{top:-20px;right:-18px;transform:rotate(3deg);}
+  .float-2{bottom:26px;left:-30px;background:var(--gold);color:var(--brown-deep);transform:rotate(-3deg);}
+
+  .search-section{padding:12px 0 70px;}
+  .search-bar{
+    background:var(--cream-2);border:1px solid var(--line);border-radius:20px;padding:10px;
+    display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:6px;
+    box-shadow:0 20px 50px -35px rgba(35,27,18,0.5);
+  }
+  .search-field{padding:12px 16px;border-radius:14px;display:flex;flex-direction:column;gap:2px;cursor:pointer;transition:background .15s;}
+  .search-field:hover{background:var(--cream);}
+  .search-field label{font-size:0.72rem;font-weight:700;color:var(--brown);}
+  .search-field input,.search-field select{
+    border:none;background:transparent;font-family:'Karla',sans-serif;font-size:0.95rem;font-weight:600;color:var(--ink);outline:none;width:100%;
+  }
+  .search-go{background:var(--green);color:var(--cream-2);border:none;border-radius:14px;padding:0 26px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;}
+  .search-go:hover{background:var(--green-deep);}
+  @media (max-width:820px){ .search-bar{grid-template-columns:1fr;} }
+
+  .filter-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;align-items:center;}
+  .filter-pill{
+    padding:9px 18px;border-radius:24px;font-size:0.85rem;font-weight:700;
+    border:1.5px solid var(--line);background:transparent;cursor:pointer;color:#4a4030;transition:all .15s;
+  }
+  .filter-pill.active,.filter-pill:hover{border-color:var(--green);background:var(--green);color:var(--cream-2);}
+  .search-note{font-size:0.85rem;color:var(--brown);font-weight:700;margin-top:14px;min-height:20px;}
+
+  .section{padding:70px 0;}
+  .section.alt{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:38px;gap:24px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(1.7rem,3vw,2.3rem);max-width:16ch;}
+  .section-head p{max-width:38ch;color:#6b6151;font-size:0.98rem;}
+  .head-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+  .count-note{font-size:0.85rem;color:var(--brown);font-weight:700;}
+  .sort-row{display:flex;align-items:center;gap:8px;font-size:0.85rem;font-weight:700;}
+  .sort-row select{
+    border:1.5px solid var(--line);background:var(--cream-2);border-radius:14px;padding:7px 12px;
+    font-family:'Karla',sans-serif;font-weight:700;font-size:0.85rem;color:var(--ink);
+  }
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:640px){.grid{grid-template-columns:1fr;}}
+
+  .empty-note{
+    grid-column:1/-1;text-align:center;padding:50px 20px;color:#6b6151;
+    border:1.5px dashed var(--line);border-radius:20px;font-size:0.95rem;
+  }
+
+  .cafe-card{
+    background:var(--cream-2);border:1.5px solid var(--line);border-radius:22px;overflow:hidden;
+    transition:transform .18s, box-shadow .18s, border-color .18s;cursor:pointer;
+  }
+  .cafe-card:hover{transform:translateY(-4px);box-shadow:0 26px 40px -28px rgba(35,27,18,0.4);}
+  .cafe-card.highlight{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,138,62,0.3);}
+  .cafe-photo{height:150px;position:relative;display:flex;align-items:flex-start;justify-content:space-between;padding:12px;}
+  .cafe-photo .fav{
+    width:32px;height:32px;border-radius:50%;background:rgba(246,241,230,0.85);
+    display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;border:none;
+  }
+  .cafe-photo .fav.active{color:var(--red);}
+  .p1{background:linear-gradient(135deg,#3B7A57,#1F5E3B);}
+  .p2{background:linear-gradient(135deg,#7A5B3B,#4A2E1A);}
+  .p3{background:linear-gradient(135deg,#2F5C4D,#163F28);}
+  .p4{background:linear-gradient(135deg,#8A6A3D,#5B3E22);}
+  .p5{background:linear-gradient(135deg,#356148,#173323);}
+  .p6{background:linear-gradient(135deg,#6E4A2E,#3A2412);}
+  .p7{background:linear-gradient(135deg,#4B6B3A,#25381B);}
+  .cafe-body{padding:18px 18px 20px;}
+  .cafe-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .cafe-top h3{font-size:1.08rem;}
+  .cafe-loc{font-size:0.82rem;color:#6b6151;margin-top:3px;}
+  .score{flex:none;background:var(--green-tint);color:var(--green-deep);font-weight:700;font-size:0.85rem;padding:5px 10px;border-radius:16px;}
+  .cafe-meta{display:flex;gap:14px;margin-top:12px;font-size:0.78rem;color:#6b6151;}
+  .cafe-tags{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
+  .tag{font-size:0.72rem;font-weight:700;color:#5c5140;background:var(--cream);border:1px solid var(--line);padding:5px 9px;border-radius:14px;}
+
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  @media (max-width:900px){.steps{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.steps{grid-template-columns:1fr;}}
+  .step{background:var(--cream-2);border:1px solid var(--line);border-radius:20px;padding:26px 22px;}
+  .step-icon{width:44px;height:44px;border-radius:12px;background:var(--green);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+  .step-icon svg{width:22px;height:22px;stroke:var(--cream-2);}
+  .step h3{font-size:1.05rem;margin-bottom:8px;}
+  .step p{font-size:0.9rem;color:#6b6151;margin:0;}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  @media (max-width:900px){.split{grid-template-columns:1fr;}}
+  .map-mock{background:linear-gradient(160deg,#E7DEC8,#D9CDAF);border:1px solid var(--line);border-radius:24px;height:440px;position:relative;overflow:hidden;}
+  .map-mock .grid-lines{
+    position:absolute;inset:0;
+    background-image:linear-gradient(to right, rgba(107,67,39,0.08) 1px, transparent 1px),linear-gradient(to bottom, rgba(107,67,39,0.08) 1px, transparent 1px);
+    background-size:40px 40px;
+  }
+  .pin{
+    position:absolute;width:38px;height:38px;border-radius:50% 50% 50% 0;background:var(--green);
+    transform:rotate(-45deg) translate(-50%,-100%);transform-origin:0 0;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 10px 20px -8px rgba(31,94,59,0.55);
+    cursor:pointer;border:none;transition:background .15s, transform .15s;
+  }
+  .pin span{transform:rotate(45deg);font-size:0.78rem;color:var(--cream-2);font-weight:800;}
+  .pin.selected{background:var(--gold);}
+  .map-card{
+    position:absolute;bottom:20px;left:20px;right:20px;background:var(--cream-2);border:1px solid var(--line);border-radius:16px;
+    padding:14px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 20px 40px -26px rgba(35,27,18,0.5);
+  }
+  .map-card h4{font-family:'Fraunces',serif;font-size:1rem;margin:0;}
+  .map-card p{margin:2px 0 0;font-size:0.8rem;color:#6b6151;}
+  .map-card button{background:var(--ink);color:var(--cream-2);border:none;border-radius:20px;padding:8px 16px;font-weight:700;font-size:0.8rem;cursor:pointer;}
+
+  .benefit-list{display:flex;flex-direction:column;gap:22px;}
+  .benefit{display:flex;gap:16px;}
+  .benefit-num{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--brown);flex:none;width:34px;}
+  .benefit h4{font-size:1.05rem;margin-bottom:6px;}
+  .benefit p{margin:0;font-size:0.92rem;color:#6b6151;}
+
+  .cta{background:var(--green-deep);color:var(--cream-2);border-radius:30px;padding:56px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;}
+  .cta h2{color:var(--cream-2);font-size:clamp(1.6rem,3vw,2.1rem);max-width:18ch;}
+  .cta p{color:#C9D9CD;margin-top:10px;max-width:38ch;font-size:0.95rem;}
+  .cta .btn-primary{background:var(--gold);color:var(--brown-deep);}
+  .cta .btn-primary:hover{background:#e0a15a;}
+
+  footer{padding:50px 0 34px;border-top:1px solid var(--line);}
+  .foot-row{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:30px;}
+  .foot-brand .logo{margin-bottom:12px;}
+  .foot-brand p{max-width:32ch;font-size:0.9rem;color:#6b6151;}
+  .foot-cols{display:flex;gap:60px;flex-wrap:wrap;}
+  .foot-col h5{font-size:0.82rem;font-weight:700;color:var(--brown);margin-bottom:12px;}
+  .foot-col a{display:block;font-size:0.9rem;margin-bottom:9px;color:#4a4030;}
+  .foot-col a:hover{color:var(--ink);}
+  .foot-bottom{display:flex;justify-content:space-between;font-size:0.82rem;color:#6b6151;border-top:1px solid var(--line);padding-top:22px;flex-wrap:wrap;gap:10px;}
+
+  .hidden{display:none !important;}
+
+  /* ---------- MODALS ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(35,27,18,0.55);
+    display:flex;align-items:center;justify-content:center;padding:24px;z-index:200;
+  }
+  .modal{
+    background:var(--cream-2);border-radius:26px;max-width:560px;width:100%;
+    max-height:88vh;overflow-y:auto;padding:0;box-shadow:0 40px 80px -30px rgba(0,0,0,0.5);
+    position:relative;
+  }
+  .modal-photo{height:180px;position:relative;}
+  .modal-close{
+    position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;
+    background:rgba(35,27,18,0.55);color:var(--cream-2);border:none;font-size:1.1rem;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .modal-body{padding:26px 28px 30px;}
+  .modal-body h2{font-size:1.5rem;}
+  .modal-loc{font-size:0.9rem;color:#6b6151;margin-top:4px;}
+  .modal-score-row{display:flex;align-items:center;gap:12px;margin-top:16px;}
+  .modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+  .modal-stat{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:12px 14px;}
+  .modal-stat span{display:block;font-size:0.72rem;color:var(--brown);font-weight:700;}
+  .modal-stat strong{font-family:'Fraunces',serif;font-size:1.15rem;}
+  .modal-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;}
+  .modal-actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;}
+  .modal-actions .btn-primary, .modal-actions .btn-ghost{padding:13px 22px;font-size:0.9rem;}
+
+  .form-group{margin-bottom:16px;}
+  .form-group label{display:block;font-size:0.82rem;font-weight:700;color:var(--brown);margin-bottom:6px;}
+  .form-group input, .form-group select{
+    width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);
+    background:var(--cream);font-family:'Karla',sans-serif;font-size:0.95rem;outline:none;
+  }
+  .form-group input:focus, .form-group select:focus{border-color:var(--green);}
+  .form-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .check-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
+  .check-pill{
+    display:flex;align-items:center;gap:6px;font-size:0.82rem;font-weight:600;
+    border:1.5px solid var(--line);border-radius:20px;padding:8px 14px;cursor:pointer;
+  }
+  .check-pill input{margin:0;}
+
+  .toast{
+    position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(120%);
+    background:var(--ink);color:var(--cream-2);padding:14px 24px;border-radius:30px;
+    font-size:0.9rem;font-weight:600;box-shadow:0 20px 40px -20px rgba(0,0,0,0.5);
+    transition:transform .3s ease;z-index:300;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#F6F1E6" stroke-width="2" stroke-linecap="round"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"/><path d="M17 9h1.5a2 2 0 0 1 0 4H17"/><path d="M7 4c0 1-1 1-1 2M11 4c0 1-1 1-1 2"/></svg>
+      </div>
+      Brew &amp; Do
+    </div>
+    <div class="nav-links">
+      <a href="#buscar">Buscar cafés</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#mapa">Mapa</a>
+      <a href="#negocios">Para cafeterías</a>
+    </div>
+    <div class="nav-right">
+      <button class="fav-toggle" id="nav-fav-toggle">♡ <span id="fav-count">0</span> favoritos</button>
+      <a href="#buscar" class="nav-cta">Encontrar mi café</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow-row"><span class="steam-dot"></span><span class="eyebrow">Directorio de cafés para trabajar y estudiar</span></div>
+      <h1>El café correcto para cada sesión de trabajo.</h1>
+      <p class="lead">Brew &amp; Do reúne wifi, enchufes, ruido y comodidad en un solo lugar, para que dejes de adivinar y empieces a producir.</p>
+      <div class="hero-actions">
+        <a href="#buscar" class="btn-primary">Buscar cerca de mí</a>
+        <a href="#como-funciona" class="btn-ghost">Ver cómo funciona</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong id="stat-total">7</strong><span>cafés verificados en el piloto</span></div>
+        <div><strong>6</strong><span>filtros de productividad</span></div>
+        <div><strong>99.9%</strong><span>disponibilidad esperada</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="float-card float-1">☕ Wifi 92 Mbps</div>
+      <div class="float-card float-2">🔌 6 enchufes libres</div>
+      <div class="visual-card">
+        <div class="visual-photo p3">
+          <span class="tag">WorkScore 9.2</span>
+        </div>
+        <div class="visual-body">
+          <div class="visual-title-row">
+            <h3>Café Almendro</h3>
+            <span class="score-pill">9.2 / 10</span>
+          </div>
+          <p class="visual-loc">Roma Norte · abre hasta las 21:00</p>
+          <div class="chip-row">
+            <span class="chip">Wifi rápido</span>
+            <span class="chip">Silencioso</span>
+            <span class="chip">Muchos enchufes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="search-section" id="buscar">
+  <div class="wrap">
+    <div class="search-bar">
+      <div class="search-field">
+        <label>Zona</label>
+        <input id="q-zone" type="text" placeholder="Colonia o ciudad">
+      </div>
+      <div class="search-field">
+        <label>Necesito</label>
+        <select id="q-need">
+          <option value="any">Cualquier cosa</option>
+          <option value="focus">Trabajar todo el día</option>
+          <option value="call">Llamada / videollamada</option>
+          <option value="study">Estudiar en silencio</option>
+          <option value="casual">Reunión informal</option>
+        </select>
+      </div>
+      <div class="search-field">
+        <label>Horario</label>
+        <select id="q-time">
+          <option value="any">Cualquier hora</option>
+          <option value="now">Abierto ahora (9:00 pm)</option>
+          <option value="late">Abierto después de las 21:00</option>
+        </select>
+      </div>
+      <button class="search-go" id="search-btn">Buscar</button>
+    </div>
+
+    <div class="filter-row" id="filters">
+      <button class="filter-pill active" data-tag="all">Todos</button>
+      <button class="filter-pill" data-tag="wifi">Wifi rápido</button>
+      <button class="filter-pill" data-tag="outlets">Muchos enchufes</button>
+      <button class="filter-pill" data-tag="quiet">Silencioso</button>
+      <button class="filter-pill" data-tag="seating">Asientos cómodos</button>
+      <button class="filter-pill" data-tag="latehours">Abierto hasta tarde</button>
+    </div>
+    <p class="search-note" id="search-note"></p>
+  </div>
+</section>
+
+<section class="section" id="resultados">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Cafés cerca de ti</h2>
+        <p>Cada perfil se arma con reportes reales de quienes ya trabajaron ahí, no con reseñas de comida.</p>
+      </div>
+      <div class="head-right">
+        <span class="count-note" id="result-count">7 lugares encontrados</span>
+        <div class="sort-row">
+          <span>Ordenar por</span>
+          <select id="sort-select">
+            <option value="score">WorkScore</option>
+            <option value="wifi">Velocidad de wifi</option>
+            <option value="distance">Cercanía</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" id="cafe-grid"></div>
+  </div>
+</section>
+
+<section class="section alt" id="como-funciona">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Cómo funciona Brew &amp; Do</h2>
+        <p>Cuatro pasos para pasar de "¿dónde trabajo hoy?" a instalarte y producir.</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+        <h3>Cuéntanos qué necesitas</h3>
+        <p>Zona, tipo de sesión y horario. Nada de formularios largos.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9-4-18-3 9H2"/></svg></div>
+        <h3>Filtra por condiciones reales</h3>
+        <p>Wifi medido, enchufes contados, nivel de ruido y comodidad de silla.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+        <h3>Compara en el mapa</h3>
+        <p>Ve WorkScore, distancia y horario antes de moverte.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+        <h3>Trabaja y deja tu reporte</h3>
+        <p>Tu reseña de productividad ayuda al siguiente usuario y al café.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="mapa">
+  <div class="wrap">
+    <div class="split">
+      <div class="map-mock" id="map-mock">
+        <div class="grid-lines"></div>
+        <div class="map-card" id="map-card">
+          <div>
+            <h4 id="map-card-name">Café Almendro</h4>
+            <p id="map-card-loc">Roma Norte · 6 min caminando</p>
+          </div>
+          <button id="map-card-btn">Ver perfil</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="eyebrow-row"><span class="steam-dot"></span><span class="eyebrow">Diseñado para decidir rápido</span></div>
+        <h2 style="font-size:clamp(1.7rem,3vw,2.2rem); margin-bottom:26px; max-width:14ch;">Todo lo que importa, antes de salir de casa</h2>
+        <div class="benefit-list">
+          <div class="benefit">
+            <span class="benefit-num">01</span>
+            <div><h4>WorkScore por lugar</h4><p>Una sola cifra que combina wifi, enchufes, ruido y comodidad.</p></div>
+          </div>
+          <div class="benefit">
+            <span class="benefit-num">02</span>
+            <div><h4>Información que se actualiza</h4><p>Marcamos la fecha del último reporte para que sepas si sigue vigente.</p></div>
+          </div>
+          <div class="benefit">
+            <span class="benefit-num">03</span>
+            <div><h4>Sin ranking pagado</h4><p>Los resultados se ordenan por qué tan bien encajan contigo, no por publicidad.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="negocios">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <h2>¿Tienes una cafetería con buen ambiente para trabajar?</h2>
+        <p>Súmate al directorio, gana visibilidad entre freelancers y estudiantes, y controla tu propio perfil.</p>
+      </div>
+      <button class="btn-primary" id="open-add-cafe">Registrar mi cafetería</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-brand">
+        <div class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F6F1E6" stroke-width="2" stroke-linecap="round"><path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"/><path d="M17 9h1.5a2 2 0 0 1 0 4H17"/></svg>
+          </div>
+          Brew &amp; Do
+        </div>
+        <p>El directorio de cafés pensado para trabajar y estudiar, no solo para comer bien.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Producto</h5>
+          <a href="#buscar">Buscar cafés</a>
+          <a href="#mapa">Mapa</a>
+          <a href="#como-funciona">Cómo funciona</a>
+        </div>
+        <div class="foot-col">
+          <h5>Cafeterías</h5>
+          <a href="#negocios">Únete al directorio</a>
+          <a href="#">Panel de socios</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contacto</h5>
+          <a href="mailto:brewdo@gmail.com">brewdo@gmail.com</a>
+          <a href="#">Ciudad de México</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Brew &amp; Do — prototipo de concepto</span>
+      <span>Proyecto Team 3 · Project Management 2026</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cafe detail modal -->
+<div class="overlay hidden" id="cafe-overlay">
+  <div class="modal">
+    <button class="modal-close" id="close-cafe-modal">✕</button>
+    <div class="modal-photo" id="modal-photo"></div>
+    <div class="modal-body">
+      <h2 id="modal-name">—</h2>
+      <p class="modal-loc" id="modal-loc">—</p>
+      <div class="modal-score-row">
+        <span class="score-pill" id="modal-score">—</span>
+        <span id="modal-hours" style="font-size:0.85rem;color:#6b6151;"></span>
+      </div>
+      <div class="modal-stats">
+        <div class="modal-stat"><span>Velocidad de wifi</span><strong id="modal-wifi">—</strong></div>
+        <div class="modal-stat"><span>Enchufes disponibles</span><strong id="modal-outlets">—</strong></div>
+        <div class="modal-stat"><span>Nivel de ruido</span><strong id="modal-noise">—</strong></div>
+        <div class="modal-stat"><span>Asientos</span><strong id="modal-seating">—</strong></div>
+      </div>
+      <div class="modal-tags" id="modal-tags"></div>
+      <div class="modal-actions">
+        <button class="btn-primary" id="modal-directions">Cómo llegar</button>
+        <button class="btn-ghost" id="modal-fav">♡ Guardar en favoritos</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add cafe modal -->
+<div class="overlay hidden" id="add-overlay">
+  <div class="modal">
+    <button class="modal-close" id="close-add-modal">✕</button>
+    <div class="modal-body">
+      <h2>Registra tu cafetería</h2>
+      <p class="modal-loc">Cuéntanos las condiciones reales de tu espacio. Tu perfil aparecerá en el directorio al instante.</p>
+      <form id="add-cafe-form" style="margin-top:20px;">
+        <div class="form-group">
+          <label>Nombre de la cafetería</label>
+          <input type="text" id="f-name" placeholder="Ej. Café Cardamomo" required>
+        </div>
+        <div class="form-row2">
+          <div class="form-group">
+            <label>Colonia / zona</label>
+            <input type="text" id="f-area" placeholder="Ej. Escandón" required>
+          </div>
+          <div class="form-group">
+            <label>Cierra a las</label>
+            <input type="number" id="f-close" placeholder="21" min="12" max="23" required>
+          </div>
+        </div>
+        <div class="form-row2">
+          <div class="form-group">
+            <label>Velocidad de wifi (Mbps)</label>
+            <input type="number" id="f-wifi" placeholder="60" required>
+          </div>
+          <div class="form-group">
+            <label>Enchufes disponibles</label>
+            <input type="number" id="f-outlets" placeholder="4" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Condiciones</label>
+          <div class="check-row">
+            <label class="check-pill"><input type="checkbox" value="quiet"> Silencioso</label>
+            <label class="check-pill"><input type="checkbox" value="seating"> Asientos cómodos</label>
+            <label class="check-pill"><input type="checkbox" value="latehours"> Abierto hasta tarde</label>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;margin-top:10px;">Publicar mi cafetería</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let cafes = [
+    {id:1, name:"Café Almendro", area:"Roma Norte", address:"Café Almendro, Roma Norte, Ciudad de México", score:9.2, cls:"p3", tags:["wifi","quiet","seating"], close:21, wifi:92, outlets:6, noise:"Silencioso", seating:"Muy cómodo", dist:0.6, fav:false},
+    {id:2, name:"La Terraza del Cuervo", area:"Condesa", address:"La Terraza del Cuervo, Condesa, Ciudad de México", score:8.6, cls:"p1", tags:["wifi","outlets","latehours"], close:23, wifi:78, outlets:9, noise:"Moderado", seating:"Cómodo", dist:1.4, fav:false},
+    {id:3, name:"Molinillo Café", area:"Coyoacán", address:"Molinillo Café, Coyoacán, Ciudad de México", score:8.1, cls:"p4", tags:["outlets","seating"], close:20, wifi:45, outlets:10, noise:"Animado", seating:"Muy cómodo", dist:3.2, fav:false},
+    {id:4, name:"Norte Espresso Bar", area:"Polanco", address:"Norte Espresso Bar, Polanco, Ciudad de México", score:7.9, cls:"p2", tags:["wifi","latehours"], close:22, wifi:88, outlets:3, noise:"Moderado", seating:"Básico", dist:2.1, fav:false},
+    {id:5, name:"Casa Retiro", area:"Del Valle", address:"Casa Retiro, Del Valle, Ciudad de México", score:8.8, cls:"p5", tags:["quiet","seating"], close:19, wifi:60, outlets:5, noise:"Silencioso", seating:"Muy cómodo", dist:1.8, fav:false},
+    {id:6, name:"El Rincón de Mateo", area:"Narvarte", address:"El Rincón de Mateo, Narvarte, Ciudad de México", score:7.6, cls:"p6", tags:["wifi","outlets","quiet"], close:20, wifi:70, outlets:7, noise:"Silencioso", seating:"Básico", dist:2.6, fav:false},
+    {id:7, name:"Vapor & Tinta", area:"Juárez", address:"Vapor y Tinta, Juárez, Ciudad de México", score:8.4, cls:"p7", tags:["wifi","outlets","latehours","quiet"], close:23, wifi:95, outlets:8, noise:"Silencioso", seating:"Cómodo", dist:0.9, fav:false},
+  ];
+
+  const tagLabelMap = {
+    wifi:"Wifi rápido", outlets:"Muchos enchufes", quiet:"Silencioso",
+    seating:"Sillas cómodas", latehours:"Abierto hasta tarde"
+  };
+  const needMap = {
+    any: [], focus:["wifi","outlets"], call:["wifi","quiet"], study:["quiet","seating"], casual:["seating"]
+  };
+
+  let activeTag = "all";
+  let onlyFavs = false;
+  let sortBy = "score";
+  let highlightId = null;
+
+  const grid = document.getElementById('cafe-grid');
+  const countNote = document.getElementById('result-count');
+  const searchNote = document.getElementById('search-note');
+  const favCountEl = document.getElementById('fav-count');
+  const favToggleBtn = document.getElementById('nav-fav-toggle');
+
+  function matchesSearch(c){
+    const zone = document.getElementById('q-zone').value.trim().toLowerCase();
+    const need = document.getElementById('q-need').value;
+    const time = document.getElementById('q-time').value;
+
+    if(zone && !c.area.toLowerCase().includes(zone) && !c.name.toLowerCase().includes(zone)) return false;
+    if(need !== 'any'){
+      const required = needMap[need];
+      if(!required.every(t => c.tags.includes(t))) return false;
+    }
+    if(time === 'now' && c.close < 21) return false;
+    if(time === 'late' && c.close <= 21) return false;
+    return true;
+  }
+
+  function getFiltered(){
+    let list = cafes.filter(matchesSearch);
+    if(activeTag !== 'all') list = list.filter(c => c.tags.includes(activeTag));
+    if(onlyFavs) list = list.filter(c => c.fav);
+    list = [...list].sort((a,b)=>{
+      if(sortBy === 'score') return b.score - a.score;
+      if(sortBy === 'wifi') return b.wifi - a.wifi;
+      if(sortBy === 'distance') return a.dist - b.dist;
+      return 0;
+    });
+    return list;
+  }
+
+  function updateFavCount(){
+    favCountEl.textContent = cafes.filter(c=>c.fav).length;
+  }
+
+  function render(){
+    const list = getFiltered();
+    countNote.textContent = list.length + (list.length===1 ? ' lugar encontrado' : ' lugares encontrados');
+    searchNote.textContent = list.length === 0 ? 'Ningún café coincide con tu búsqueda — prueba quitando algún filtro.' : '';
+
+    if(list.length === 0){
+      grid.innerHTML = '<div class="empty-note">No encontramos cafés con esos filtros todavía. Ajusta la zona, el horario o quita un filtro.</div>';
+      return;
+    }
+
+    grid.innerHTML = list.map(c => `
+      <div class="cafe-card ${c.id===highlightId ? 'highlight':''}" data-id="${c.id}">
+        <div class="cafe-photo ${c.cls}">
+          <span></span>
+          <button class="fav ${c.fav ? 'active':''}" data-fav="${c.id}">${c.fav ? '♥' : '♡'}</button>
+        </div>
+        <div class="cafe-body">
+          <div class="cafe-top">
+            <div>
+              <h3>${c.name}</h3>
+              <p class="cafe-loc">${c.area} · abre hasta las ${c.close}:00</p>
+            </div>
+            <span class="score">${c.score.toFixed(1)}</span>
+          </div>
+          <div class="cafe-meta">
+            <span>📶 ${c.wifi} Mbps</span>
+            <span>🔌 ${c.outlets}</span>
+            <span>📍 ${c.dist} km</span>
+          </div>
+          <div class="cafe-tags">
+            ${c.tags.map(t => `<span class="tag">${tagLabelMap[t]}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // filter pills
+  document.querySelectorAll('.filter-pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      activeTag = btn.dataset.tag;
+      render();
+    });
+  });
+
+  document.getElementById('search-btn').addEventListener('click', render);
+  document.getElementById('q-zone').addEventListener('keyup', (e)=>{ if(e.key==='Enter') render(); });
+  document.getElementById('sort-select').addEventListener('change', (e)=>{ sortBy = e.target.value; render(); });
+
+  favToggleBtn.addEventListener('click', ()=>{
+    onlyFavs = !onlyFavs;
+    favToggleBtn.classList.toggle('active', onlyFavs);
+    render();
+  });
+
+  // card clicks: favorite toggle vs open modal
+  grid.addEventListener('click', (e)=>{
+    const favBtn = e.target.closest('[data-fav]');
+    if(favBtn){
+      const id = Number(favBtn.dataset.fav);
+      const c = cafes.find(x=>x.id===id);
+      c.fav = !c.fav;
+      updateFavCount();
+      showToast(c.fav ? `${c.name} guardado en favoritos` : `${c.name} quitado de favoritos`);
+      render();
+      return;
+    }
+    const card = e.target.closest('.cafe-card');
+    if(card){
+      openCafeModal(Number(card.dataset.id));
+    }
+  });
+
+  // ---- Cafe detail modal ----
+  const cafeOverlay = document.getElementById('cafe-overlay');
+  function openCafeModal(id){
+    const c = cafes.find(x=>x.id===id);
+    if(!c) return;
+    document.getElementById('modal-photo').className = 'modal-photo ' + c.cls;
+    document.getElementById('modal-name').textContent = c.name;
+    document.getElementById('modal-loc').textContent = c.area + ' · ' + c.dist + ' km de tu ubicación';
+    document.getElementById('modal-score').textContent = c.score.toFixed(1) + ' / 10';
+    document.getElementById('modal-hours').textContent = 'Abre hasta las ' + c.close + ':00';
+    document.getElementById('modal-wifi').textContent = c.wifi + ' Mbps';
+    document.getElementById('modal-outlets').textContent = c.outlets + ' libres';
+    document.getElementById('modal-noise').textContent = c.noise;
+    document.getElementById('modal-seating').textContent = c.seating;
+    document.getElementById('modal-tags').innerHTML = c.tags.map(t=>`<span class="tag">${tagLabelMap[t]}</span>`).join('');
+    const favBtn = document.getElementById('modal-fav');
+    favBtn.textContent = c.fav ? '♥ En tus favoritos' : '♡ Guardar en favoritos';
+    favBtn.onclick = ()=>{
+      c.fav = !c.fav;
+      updateFavCount();
+      favBtn.textContent = c.fav ? '♥ En tus favoritos' : '♡ Guardar en favoritos';
+      render();
+    };
+    document.getElementById('modal-directions').onclick = ()=>{
+      window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.address), '_blank');
+    };
+    cafeOverlay.classList.remove('hidden');
+  }
+  document.getElementById('close-cafe-modal').addEventListener('click', ()=> cafeOverlay.classList.add('hidden'));
+  cafeOverlay.addEventListener('click', (e)=>{ if(e.target === cafeOverlay) cafeOverlay.classList.add('hidden'); });
+
+  // ---- Map ----
+  const mapMock = document.getElementById('map-mock');
+  const mapPositions = [
+    {top:'20%', left:'22%'}, {top:'38%', left:'50%'}, {top:'58%', left:'70%'},
+    {top:'70%', left:'30%'}, {top:'26%', left:'68%'}, {top:'50%', left:'16%'}, {top:'14%', left:'46%'}
+  ];
+  function renderPins(){
+    document.querySelectorAll('.pin').forEach(p=>p.remove());
+    cafes.forEach((c,i)=>{
+      const pos = mapPositions[i % mapPositions.length];
+      const pin = document.createElement('button');
+      pin.className = 'pin' + (c.id===highlightId ? ' selected':'');
+      pin.style.top = pos.top; pin.style.left = pos.left;
+      pin.innerHTML = `<span>${c.score.toFixed(1)}</span>`;
+      pin.addEventListener('click', ()=> selectOnMap(c.id));
+      mapMock.appendChild(pin);
+    });
+  }
+  function selectOnMap(id){
+    const c = cafes.find(x=>x.id===id);
+    highlightId = id;
+    document.getElementById('map-card-name').textContent = c.name;
+    document.getElementById('map-card-loc').textContent = c.area + ' · ' + c.dist + ' km';
+    renderPins();
+    render();
+    document.getElementById('resultados').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  document.getElementById('map-card-btn').addEventListener('click', ()=>{
+    if(highlightId) openCafeModal(highlightId);
+    else openCafeModal(cafes[0].id);
+  });
+  renderPins();
+  selectOnMapSilently(cafes[0].id);
+  function selectOnMapSilently(id){
+    const c = cafes.find(x=>x.id===id);
+    highlightId = id;
+    document.getElementById('map-card-name').textContent = c.name;
+    document.getElementById('map-card-loc').textContent = c.area + ' · ' + c.dist + ' km';
+  }
+
+  // ---- Add cafe modal ----
+  const addOverlay = document.getElementById('add-overlay');
+  document.getElementById('open-add-cafe').addEventListener('click', ()=> addOverlay.classList.remove('hidden'));
+  document.getElementById('close-add-modal').addEventListener('click', ()=> addOverlay.classList.add('hidden'));
+  addOverlay.addEventListener('click', (e)=>{ if(e.target===addOverlay) addOverlay.classList.add('hidden'); });
+
+  const photoClasses = ['p1','p2','p3','p4','p5','p6','p7'];
+  document.getElementById('add-cafe-form').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const name = document.getElementById('f-name').value.trim();
+    const area = document.getElementById('f-area').value.trim();
+    const close = Number(document.getElementById('f-close').value);
+    const wifi = Number(document.getElementById('f-wifi').value);
+    const outlets = Number(document.getElementById('f-outlets').value);
+    const checked = Array.from(document.querySelectorAll('#add-cafe-form input[type=checkbox]:checked')).map(x=>x.value);
+
+    const tags = [];
+    if(wifi >= 60) tags.push('wifi');
+    if(outlets >= 5) tags.push('outlets');
+    checked.forEach(t=>{ if(!tags.includes(t)) tags.push(t); });
+
+    let score = 6 + (wifi>=60?0.8:0) + (outlets>=5?0.6:0) + (checked.includes('quiet')?0.7:0) + (checked.includes('seating')?0.5:0);
+    score = Math.min(score, 9.9);
+
+    const newCafe = {
+      id: Math.max(...cafes.map(c=>c.id)) + 1,
+      name: name || 'Nueva cafetería',
+      area: area || 'Ciudad de México',
+      address: (name || 'Nueva cafetería') + ', ' + (area || 'Ciudad de México'),
+      score: score,
+      cls: photoClasses[cafes.length % photoClasses.length],
+      tags: tags.length ? tags : ['wifi'],
+      close: close || 20,
+      wifi: wifi || 40,
+      outlets: outlets || 3,
+      noise: checked.includes('quiet') ? 'Silencioso' : 'Moderado',
+      seating: checked.includes('seating') ? 'Muy cómodo' : 'Básico',
+      dist: (Math.random()*3 + 0.4).toFixed(1)*1,
+      fav:false
+    };
+    cafes.push(newCafe);
+    document.getElementById('stat-total').textContent = cafes.length;
+    renderPins();
+    render();
+    addOverlay.classList.add('hidden');
+    e.target.reset();
+    showToast(newCafe.name + ' se publicó en el directorio');
+  });
+
+  // ---- toast ----
+  let toastTimer;
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> t.classList.remove('show'), 2600);
+  }
+
+  render();
+</script>
+
+</body>
+</html>
